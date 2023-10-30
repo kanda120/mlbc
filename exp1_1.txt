@@ -1,0 +1,49 @@
+pip install numpy scikit-learn
+
+# Import installed packages
+import numpy as np
+from sklearn.linear_model import LinearRegression
+
+# Create sample data
+x = np.array([5, 15, 25, 35, 45, 55]).reshape((-1, 1))
+y = np.array([5, 20, 14, 32, 22, 38])
+
+# Create a regression model and fit it with existing data
+model = LinearRegression() # Initialize the Linear Regression model
+model.fit(x, y) # Fit the model to the data
+
+# Calculate the coefficient of determination (R-squared)
+r_sq = model.score(x, y)
+print(f"coefficient of determination: {r_sq}")
+
+# You can also fit the model with y.reshape((-1, 1))
+new_model = LinearRegression().fit(x, y.reshape((-1, 1)))
+
+print(f"intercept: {new_model.intercept_}")
+print(f"slope: {new_model.coef_}")
+
+# Predict the values based on the model
+y_pred = model.predict(x)
+print(f"predicted response:\n{y_pred}")
+x_new = np.array([5]).reshape((-1, 1))
+y_new = model.predict(x_new)
+print(f"Predicted new value: {y_new[0]}")
+
+x_new
+
+y_new
+
+#Theory:
+#    Linear regression is one of the easiest and most popular Machine Learning
+#algorithms. It is a statistical method that is used for predictive analysis. Linear
+#regression makes predictions for continuous/real or numeric variables such as sales,
+#salary, age, product price, etc.
+#   Linear regression algorithm shows a linear relationship between a dependent (y) and
+#one or more independent (y) variables, hence called as linear regression. Since linear
+#regression shows the linear relationship, which means it finds how the value of the
+#dependent variable is changing according to the value of the independent variable.
+#   The linear regression model provides a sloped straight line representing the
+#relationship between the variables.
+#Mathematically, we can represent a linear regression as: y= a0+a1x+ ε
+
+# Algorithm is hidden in '#' above code

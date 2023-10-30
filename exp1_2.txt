@@ -1,0 +1,68 @@
+pip install pandas numpy matplotlib 1.2
+
+# Import installed packages
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Create Age_Income.csv file in Excel 
+
+#   Age	Income
+#   25	25000
+#   23	22000
+#   24	26000
+#   28	29000
+#   34	38600
+#   32	36500
+#   42	41000
+#   55	81000
+
+# Read the CSV file (assuming the file name is 'Age_Income.csv' in the same directory as your script)
+dataFrame = pd.read_csv(r'Age_Income.csv')
+
+# Extract 'Age' and 'Income' columns from the DataFrame
+age = dataFrame['Age']
+income = dataFrame['Income']
+
+# Calculate the number of data points (num), mean age, and mean income
+num = np.size(age)
+mean_age = np.mean(age)
+mean_income = np.mean(income)
+
+# Calculate the coefficients
+CD_ageincome = np.sum(income * age) - num * mean_income * mean_age
+CD_ageage = np.sum(age * age) - num * mean_age * mean_age
+b1 = CD_ageincome / CD_ageage
+b0 = mean_income - b1 * mean_age
+
+print("Estimated Coefficients:")
+print("b0 =", b0)
+print("b1 =", b1)
+
+# Create a scatter plot of age vs. income
+plt.scatter(age, income, color="b", marker="o")
+
+# Calculate the response vector for the regression line
+response_Vec = b0 + b1 * age
+
+# Plot the regression line
+plt.plot(age, response_Vec, color="r")
+
+plt.xlabel('Age')
+plt.ylabel('Income')
+plt.show()
+
+#Theory: 
+#    Linear regression is one of the easiest and most popular Machine Learning
+#algorithms. It is a statistical method that is used for predictive analysis. Linear
+#regression makes predictions for continuous/real or numeric variables such as sales,
+#salary, age, product price, etc.
+#   Linear regression algorithm shows a linear relationship between a dependent (y) and
+#one or more independent (y) variables, hence called as linear regression. Since linear
+#regression shows the linear relationship, which means it finds how the value of the
+#dependent variable is changing according to the value of the independent variable.
+#   The linear regression model provides a sloped straight line representing the
+#relationship between the variables.
+#Mathematically, we can represent a linear regression as: y= a0+a1x+ ε
+
+# Algorithm is hidden in '#' above code

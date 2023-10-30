@@ -1,0 +1,82 @@
+pip install panda numpy matplotlib plotly scikit-learn
+
+# Import the necessary libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import plotly.graph_objects as go
+from sklearn.model_selection import train_test_split
+
+# Create LogisticRegressionData.csv file in Excel
+
+#   Age	salary	Purchased
+#   25	25000	0
+#   30	27000	1
+#   31	30000	1
+
+# Load the dataset
+dataset = pd.read_csv(r'LogisticRegressiondata.csv')
+
+# Print the dataset
+print(dataset)
+
+# Split the data into inputs (X) and outputs (y)
+X = dataset.iloc[:, [0, 1]].values
+y = dataset.iloc[:, 2].values
+
+# Count the total output data in the 'Purchased' column
+target_balance = dataset['Purchased'].value_counts().reset_index()
+
+# Divide the output classes into two sections
+target_class = go.Bar(
+    name='Target Balance',
+    x=['Not-Purchased', 'Purchased'],
+    y=target_balance['Purchased']
+)
+
+# Creating variables to count class occurrences
+class_one = 0
+class_two = 0
+
+# Iterate through the output class
+for i in y:
+    if i == 0:
+        class_one += 1
+    else:
+        class_two += 1
+
+# Create a numpy array
+values = np.array([class_one, class_two])
+labels = ["Not-Purchased", "Purchased"]
+
+# Plot the pie chart
+plt.pie(values, labels=labels)
+plt.show()
+
+# Print the results
+print("Not purchased:", class_one)
+print("Purchased:", class_two)
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+
+# Print the first 10 rows of the training data
+print("Independent class (X_train):\n", X_train[:10])
+
+# Print the first 10 rows of the dependent class (y_train)
+print("\nDependent class (y_train):\n", y_train[:10])
+
+#Theory:-
+#    Logistic regression is one of the most popular Machine Learning algorithms,
+# which comes under the Supervised Learning technique. It is used for
+# predicting the categorical dependent variable using a given set of independent
+# variables.
+#    Logistic regression predicts the output of a categorical dependent variable.
+# Therefore the outcome must be a categorical or discrete value. It can be either
+# Yes or No, 0 or 1, true or False, etc. but instead of giving the exact value as 0
+# and 1, it gives the probabilistic values which lie between 0 and 1.
+#    Logistic Regression is much similar to the Linear Regression except that how
+# they are used. Linear Regression is used for solving Regression problems,
+# whereas Logistic regression is used for solving the classification problems.
+
+# Algorithm is hidden in '#' above code
